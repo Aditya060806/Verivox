@@ -1,0 +1,70 @@
+require('dotenv').config();
+
+const config = {
+  // Server
+  port: parseInt(process.env.PORT, 10) || 3000,
+  nodeEnv: process.env.NODE_ENV || 'development',
+  isDev: process.env.NODE_ENV === 'development',
+  isProd: process.env.NODE_ENV === 'production',
+
+  // Database
+  databaseUrl: process.env.DATABASE_URL,
+
+  // Redis
+  redisUrl: process.env.REDIS_URL || 'redis://localhost:6379',
+
+  // JWT
+  jwt: {
+    secret: process.env.JWT_SECRET || 'default-secret-change-me',
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
+  },
+
+  // API Keys
+  publicApiKey: process.env.PUBLIC_API_KEY,
+
+  // OpenAI / LLM
+  openai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    model: process.env.OPENAI_MODEL || 'gpt-4-turbo-preview',
+  },
+
+  // Supabase (pgvector)
+  supabase: {
+    supabaseUrl: process.env.SUPABASE_URL,
+    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY,
+  },
+
+  // Clarix Python engine (FastAPI)
+  clarixEngine: {
+    url: process.env.CLARIX_ENGINE_URL || 'http://127.0.0.1:8000',
+    internalToken: process.env.CLARIX_INTERNAL_TOKEN || '',
+  },
+
+  // Rate Limiting
+  rateLimit: {
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 60000,
+    maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS, 10) || 100,
+  },
+
+  // Cache TTL (in seconds)
+  cache: {
+    analysisTtl: parseInt(process.env.CACHE_TTL_ANALYSIS, 10) || 3600,
+    feedTtl: parseInt(process.env.CACHE_TTL_FEED, 10) || 300,
+  },
+
+  // Scoring thresholds (CLARIX credibility bands)
+  scoring: {
+    // 90-100: Authorized (trusted, blue badge)
+    authorizedThreshold: 90,
+    // 60-89: Suspicious/Unauthorized (flagged, red badge)
+    suspiciousThreshold: 60,
+    // Below 60: Removed/Blocked (overlay, strikethrough)
+    blockedThreshold: 60,
+    // Low confidence for breaking news
+    lowConfidenceThreshold: 0.5,
+    // Feed minimum score (don't show below this)
+    feedMinScore: 60,
+  },
+};
+
+module.exports = config;

@@ -1,0 +1,103 @@
+const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const { analyzeController } = require('../controllers');
+const { requireAuth, requireSession, analysisLimiter } = require('../middleware');
+const { validate, analyzeUrlSchema, analyzeTextSchema } = require('../validators');
+
+// Multer config for image upload (in-memory, 10 MB limit)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) cb(null, true);
+    else cb(new Error('Only image files are allowed'), false);
+  },
+});
+
+/**
+ * @route   POST /api/analyze
+ * @desc    Unified analyze endpoint (extension + frontend)
+ * @access  Requires API key or session
+ */
+router.post(
+  '/',
+  analysisLimiter,
+  requireAuth,
+  analyzeController.analyze
+);
+
+/**
+ * @route   POST /api/analyze/url
+ * @desc    Analyze URL for credibility
+ * @access  Requires API key or session
+ */
+router.post(
+  '/url',
+  analysisLimiter,
+  requireAuth,
+  validate(analyzeUrlSchema),
+  analyzeController.analyzeUrl
+);
+
+/**
+ * @route   POST /api/analyze/text
+ * @desc    Analyze raw text for credibility
+ * @access  Requires API key or session
+ */
+router.post(
+  '/text',
+  analysisLimiter,
+  requireAuth,
+  validate(analyzeTextSchema),
+  analyzeController.analyzeText
+);
+
+/**
+ * @route   POST /api/analyze/image
+ * @desc    Analyze uploaded image for deepfake detection
+ * @access  Requires API key or session
+ */
+router.post(
+  '/image',
+  analysisLimiter,
+  requireAuth,
+  upload.single('file'),
+  analyzeController.analyzeImage
+);
+
+/**
+ * @route   GET /api/analyze/history
+ * @desc    Get analysis history for current session
+ * @access  Requires API key or session
+ */
+router.get('/history', requireAuth, analyzeController.getHistory);
+
+/**
+ * @route   POST /api/analyze/async/url
+ * @desc    Queue URL analysis (non-blocking, returns job ID for polling)
+ * @access  Requires API key or session
+ */
+router.post(
+  '/async/url',
+  analysisLimiter,
+  requireAuth,
+  validate(analyzeUrlSchema),
+  analyzeController.asyncAnalyzeUrl
+);
+
+/**
+ * @route   GET /api/analyze/status/:requestId
+ * @desc    Check async analysis status
+ * @access  Public
+ */
+router.get('/status/:requestId', analyzeController.getAnalysisStatus);
+
+/**
+ * @route   GET /api/analyze/:resultId
+ * @desc    Get specific analysis result
+ * @access  Public
+ */
+router.get('/:resultId', analyzeController.getAnalysis);
+
+module.exports = router;
