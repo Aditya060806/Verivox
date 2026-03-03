@@ -6,20 +6,6 @@
 
 An advanced AI-powered credibility engine that fact-checks claims, detects deepfake images, analyzes media bias, and scans full web pages for misinformation — in real-time.
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
-[![Python](https://img.shields.io/badge/Python-3.11+-yellow.svg)](https://python.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-16-black.svg)](https://nextjs.org/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4.1-purple.svg)](https://openai.com/)
-
-</div>
-
----
-
-<div align="center">
-
-![VERIVOX Hero](docs/screenshots/hero-landing.png)
-
 </div>
 
 ---
@@ -100,47 +86,7 @@ VERIVOX doesn't just flag content as fake — it provides a **detailed trust sco
 
 ## 🖥️ Web Dashboard
 
-The CLARIX web dashboard provides a **premium, dark-themed interface** with real-time particle animations and glassmorphism cards.
-
-### Landing Page
-
-<div align="center">
-
-![CLARIX Landing](docs/screenshots/hero-landing.png)
-
-*Sleek landing page with animated particle background and "Verify Anything, Instantly" tagline*
-
-</div>
-
-### Analyzer Dashboard
-
-<div align="center">
-
-![Analyzer Dashboard](docs/screenshots/analyzer-dashboard.png)
-
-*Dashboard with Text/Claim input, Quick Stats (live from database), and Recent Activity feed*
-
-</div>
-
-### Analysis Results
-
-<div align="center">
-
-![Analysis Results](docs/screenshots/analysis-results.png)
-
-*Full analysis result showing Trust Score ring (15/100), "Misleading" verdict, Signal Breakdown bars (Fact-Check, Source Credibility, Sentiment/Bias), and detailed AI-generated explanation*
-
-</div>
-
-### Image / Deepfake Detection
-
-<div align="center">
-
-![Image Analysis](docs/screenshots/image-analysis.png)
-
-*Image upload with drag-and-drop zone and URL input — powered by EfficientNet-B0 deepfake detection model*
-
-</div>
+The VERIVOX web dashboard provides a **premium, dark-themed interface** with real-time particle animations and glassmorphism cards.
 
 ---
 
@@ -151,26 +97,6 @@ The CLARIX web dashboard provides a **premium, dark-themed interface** with real
 ### Why This Matters
 
 Most fact-checking tools require you to **leave the page**, paste content into a separate website, and wait for results. VERIVOX brings the verification engine **directly into your browser toolbar**, making credibility assessment as natural as clicking a bookmark.
-
-### Extension Popup — Clean & Focused
-
-<div align="center">
-
-![Extension Popup](docs/screenshots/extension-popup.png)
-
-*Compact popup with three modes: Text/Claim verification, Image/Media analysis, and Full Page scanning*
-
-</div>
-
-### Extension Analysis — Instant Results
-
-<div align="center">
-
-![Extension Results](docs/screenshots/extension-results.png)
-
-*Real analysis result inside the extension popup — Trust Score of 5, "Likely Misleading" verdict with full Signal Breakdown and AI explanation for the claim "NASA confirms moon is made of cheese"*
-
-</div>
 
 ### Extension Features
 
